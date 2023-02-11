@@ -1,4 +1,4 @@
 ### zhenhai314ft
 
-# JTS个人小站
-大家好啊，我是(前) jī-tiong-seng （<ruby>めい<rt></rt>な</ruby>不方便写出）
+# LTS个人小站说明
+大家好啊，我是(前)Lī-Tiong-Sing （めい不方便写出）
