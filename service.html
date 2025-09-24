@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NK05J10实验室服务台（试行）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(94, 234, 212, 0.2);
+            color: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            background: linear-gradient(to right, #5eead4, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+            color: #cbd5e1;
+        }
+        
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+            position: relative;
+        }
+        
+        .response-area {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(2, 8, 20, 0.4);
+            overflow-y: auto;
+            min-height: 300px;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .response-area::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 4px;
+        }
+        
+        .response-area::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #0ea5e9, #5eead4);
+            border-radius: 4px;
+        }
+        
+        .input-area {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(2, 8, 20, 0.4);
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .input-display {
+            background: rgba(2, 6, 23, 0.7);
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 16px;
+            margin-bottom: 15px;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            color: #f0f9ff;
+            letter-spacing: 0.5px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .keyboard-container {
+            position: relative;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .keyboard-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 8px 16px;
+            border: none;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            color: #cbd5e1;
+            font-weight: 500;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .tab-button:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(45deg, #0ea5e9, #5eead4);
+            color: #0f172a;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+        }
+        
+        .keyboard-grid {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .grid-9 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .grid-26 {
+            grid-template-columns: repeat(6, 1fr);
+        }
+        
+        .grid-36 {
+            grid-template-columns: repeat(6, 1fr);
+        }
+        
+        .key-button {
+            padding: 15px;
+            border: none;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            color: #f8fafc;
+            font-weight: 500;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .key-button:hover {
+            background: rgba(56, 189, 248, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .key-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .key-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(94, 234, 212, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        .key-button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .key-button.special {
+            background: linear-gradient(45deg, #8b5cf6, #ec4899);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .key-button.special:hover {
+            background: linear-gradient(45deg, #7c3aed, #db2777);
+            box-shadow: 0 6px 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .key-button.enter {
+            background: linear-gradient(45deg, #0ea5e9, #5eead4);
+            color: #0f172a;
+            font-weight: 600;
+        }
+        
+        .key-button.enter:hover {
+            background: linear-gradient(45deg, #0284c7, #14b8a6);
+            box-shadow: 0 6px 15px rgba(14, 165, 233, 0.4);
+        }
+        
+        .key-button.backspace {
+            background: linear-gradient(45deg, #ef4444, #f97316);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .key-button.backspace:hover {
+            background: linear-gradient(45deg, #dc2626, #ea580c);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.4);
+        }
+        
+        .key-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .key-desc {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 4px;
+            color: #cbd5e1;
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .control-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .control-button:active {
+            transform: translateY(0);
+        }
+        
+        .clear-button {
+            background: linear-gradient(45deg, #ef4444, #f97316);
+            color: white;
+        }
+        
+        .clear-button:hover {
+            background: linear-gradient(45deg, #dc2626, #ea580c);
+        }
+        
+        .execute-button {
+            background: linear-gradient(45deg, #0ea5e9, #5eead4);
+            color: #0f172a;
+            font-weight: 600;
+        }
+        
+        .execute-button:hover {
+            background: linear-gradient(45deg, #0284c7, #14b8a6);
+        }
+        
+        .response-content {
+            line-height: 1.7;
+        }
+        
+        .response-content h1, 
+        .response-content h2, 
+        .response-content h3 {
+            margin: 20px 0 15px;
+            color: #5eead4;
+            font-weight: 600;
+        }
+        
+        .response-content h1 {
+            font-size: 26px;
+            border-bottom: 2px solid rgba(94, 234, 212, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .response-content h2 {
+            font-size: 22px;
+        }
+        
+        .response-content h3 {
+            font-size: 18px;
+        }
+        
+        .response-content p {
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+        
+        .response-content ul, 
+        .response-content ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .response-content li {
+            margin-bottom: 8px;
+            color: #e2e8f0;
+        }
+        
+        .response-content a {
+            color: #38bdf8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .response-content a:hover {
+            color: #5eead4;
+            border-bottom: 1px solid rgba(94, 234, 212, 0.5);
+        }
+        
+        .response-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .response-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .response-content th, 
+        .response-content td {
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .response-content th {
+            background: linear-gradient(45deg, #0ea5e9, #5eead4);
+            color: #0f172a;
+            font-weight: 600;
+        }
+        
+        .response-content tr:nth-child(even) {
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .response-content tr:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+        
+        .menu-item {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #0ea5e9;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .menu-item:hover {
+            background: rgba(56, 189, 248, 0.15);
+            transform: translateX(5px);
+            border-left: 4px solid #5eead4;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .menu-item-title {
+            font-weight: 600;
+            color: #5eead4;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .menu-item-desc {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .breadcrumb {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(94, 234, 212, 0.1);
+        }
+        
+        .breadcrumb span {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .breadcrumb span:hover {
+            color: #5eead4;
+            text-decoration: underline;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 8px currentColor;
+        }
+        
+        .status-online {
+            background: #5eead4;
+            color: #5eead4;
+        }
+        
+        .status-offline {
+            background: #f87171;
+            color: #f87171;
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 25px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% {
+                content: '.';
+            }
+            40% {
+                content: '..';
+            }
+            60%, 100% {
+                content: '...';
+            }
+        }
+        
+        .welcome-message {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(94, 234, 212, 0.15));
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(94, 234, 212, 0.2);
+            box-shadow: 0 8px 32px rgba(2, 8, 20, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(94, 234, 212, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .welcome-message h2 {
+            color: #5eead4;
+            margin-bottom: 15px;
+            font-size: 28px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-message p {
+            color: #e2e8f0;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .keyboard-grid {
+                gap: 6px;
+            }
+            
+            .key-button {
+                padding: 12px 8px;
+                font-size: 14px;
+                min-height: 55px;
+            }
+            
+            .grid-26, .grid-36 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .main-container {
+                padding: 15px;
+            }
+            
+            .response-area, .input-area {
+                padding: 20px;
+            }
+            
+            .welcome-message h2 {
+                font-size: 24px;
+            }
+            
+            .welcome-message p {
+                font-size: 14px;
+            }
+            
+            .response-content h1 {
+                font-size: 22px;
+            }
+            
+            .response-content h2 {
+                font-size: 18px;
+            }
+            
+            .response-content h3 {
+                font-size: 16px;
+            }
+        }
+        
+        /* Add tech pattern background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(94, 234, 212, 0.05) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 49%, rgba(56, 189, 248, 0.03) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(94, 234, 212, 0.03) 50%, transparent 51%);
+            background-size: 100px 100px;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>NK05J10实验室服务台（试行）</h1>
+        <p>多页键盘布局 | 富文本响应 | 持续建设中</p>
+    </div>
+    
+    <div class="main-container">
+        <div class="response-area" id="responseArea">
+            <div class="welcome-message">
+                <h2>欢迎使用实验室NK05J10服务台</h2>
+                <p>请使用下方键盘输入指令，或点击键盘标签切换不同布局</p>
+                <p>当前状态：<span class="status-indicator status-online"></span>在线</p>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <div class="input-display" id="inputDisplay">
+                <span style="color: #999;">等待输入...</span>
+            </div>
+            
+            <div class="keyboard-container">
+                <div class="keyboard-tabs">
+                    <button class="tab-button active" onclick="switchKeyboard('main')">主菜单</button>
+                    <button class="tab-button" onclick="switchKeyboard('numeric')">数字键盘</button>
+                    <button class="tab-button" onclick="switchKeyboard('alpha')">字母键盘</button>
+                    <button class="tab-button" onclick="switchKeyboard('symbols')">符号键盘</button>
+                    <button class="tab-button" onclick="switchKeyboard('service')">服务快捷</button>
+                </div>
+                
+                <div id="keyboardMain" class="keyboard-grid grid-9">
+                    <button class="key-button" onclick="inputKey('1')">
+                        <span class="key-label">1</span>
+                        <span class="key-desc">实验室导航</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('2')">
+                        <span class="key-label">2</span>
+                        <span class="key-desc">实验室日志</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('3')">
+                        <span class="key-label">3</span>
+                        <span class="key-desc">文库</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('FS')">
+                        <span class="key-label">FS</span>
+                        <span class="key-desc">音乐台</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('L')">
+                        <span class="key-label">L</span>
+                        <span class="key-desc">历史归档</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('T')">
+                        <span class="key-label">T</span>
+                        <span class="key-desc">工部工具</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('DT')">
+                        <span class="key-label">DT</span>
+                        <span class="key-desc">富文本表格</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('M')">
+                        <span class="key-label">M</span>
+                        <span class="key-desc">图库</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('Q')">
+                        <span class="key-label">Q</span>
+                        <span class="key-desc">帮助支持</span>
+                    </button>
+                </div>
+                
+                <div id="keyboardNumeric" class="keyboard-grid grid-9" style="display: none;">
+                    <button class="key-button" onclick="inputKey('7')">7</button>
+                    <button class="key-button" onclick="inputKey('8')">8</button>
+                    <button class="key-button" onclick="inputKey('9')">9</button>
+                    <button class="key-button" onclick="inputKey('4')">4</button>
+                    <button class="key-button" onclick="inputKey('5')">5</button>
+                    <button class="key-button" onclick="inputKey('6')">6</button>
+                    <button class="key-button" onclick="inputKey('1')">1</button>
+                    <button class="key-button" onclick="inputKey('2')">2</button>
+                    <button class="key-button" onclick="inputKey('3')">3</button>
+                    <button class="key-button" onclick="inputKey('0')">0</button>
+                    <button class="key-button" onclick="inputKey('.')">.</button>
+                    <button class="key-button" onclick="inputKey(';')">;</button>
+                </div>
+                
+                <div id="keyboardAlpha" class="keyboard-grid grid-26" style="display: none;">
+                    <button class="key-button" onclick="inputKey('A')">A</button>
+                    <button class="key-button" onclick="inputKey('B')">B</button>
+                    <button class="key-button" onclick="inputKey('C')">C</button>
+                    <button class="key-button" onclick="inputKey('D')">D</button>
+                    <button class="key-button" onclick="inputKey('E')">E</button>
+                    <button class="key-button" onclick="inputKey('F')">F</button>
+                    <button class="key-button" onclick="inputKey('G')">G</button>
+                    <button class="key-button" onclick="inputKey('H')">H</button>
+                    <button class="key-button" onclick="inputKey('I')">I</button>
+                    <button class="key-button" onclick="inputKey('J')">J</button>
+                    <button class="key-button" onclick="inputKey('K')">K</button>
+                    <button class="key-button" onclick="inputKey('L')">L</button>
+                    <button class="key-button" onclick="inputKey('M')">M</button>
+                    <button class="key-button" onclick="inputKey('N')">N</button>
+                    <button class="key-button" onclick="inputKey('O')">O</button>
+                    <button class="key-button" onclick="inputKey('P')">P</button>
+                    <button class="key-button" onclick="inputKey('Q')">Q</button>
+                    <button class="key-button" onclick="inputKey('R')">R</button>
+                    <button class="key-button" onclick="inputKey('S')">S</button>
+                    <button class="key-button" onclick="inputKey('T')">T</button>
+                    <button class="key-button" onclick="inputKey('U')">U</button>
+                    <button class="key-button" onclick="inputKey('V')">V</button>
+                    <button class="key-button" onclick="inputKey('W')">W</button>
+                    <button class="key-button" onclick="inputKey('X')">X</button>
+                    <button class="key-button" onclick="inputKey('Y')">Y</button>
+                    <button class="key-button" onclick="inputKey('Z')">Z</button>
+                </div>
+                
+                <div id="keyboardSymbols" class="keyboard-grid grid-36" style="display: none;">
+                    <button class="key-button" onclick="inputKey('!')">!</button>
+                    <button class="key-button" onclick="inputKey('@')">@</button>
+                    <button class="key-button" onclick="inputKey('#')">#</button>
+                    <button class="key-button" onclick="inputKey('$')">$</button>
+                    <button class="key-button" onclick="inputKey('%')">%</button>
+                    <button class="key-button" onclick="inputKey('^')">^</button>
+                    <button class="key-button" onclick="inputKey('&')">&</button>
+                    <button class="key-button" onclick="inputKey('*')">*</button>
+                    <button class="key-button" onclick="inputKey('('">(</button>
+                    <button class="key-button" onclick="inputKey(')')">)</button>
+                    <button class="key-button" onclick="inputKey('-')">-</button>
+                    <button class="key-button" onclick="inputKey('_')">_</button>
+                    <button class="key-button" onclick="inputKey('=')">=</button>
+                    <button class="key-button" onclick="inputKey('+')">+</button>
+                    <button class="key-button" onclick="inputKey('['">[</button>
+                    <button class="key-button" onclick="inputKey(']')">]</button>
+                    <button class="key-button" onclick="inputKey('{')">{</button>
+                    <button class="key-button" onclick="inputKey('}')">}</button>
+                    <button class="key-button" onclick="inputKey('\\')">\</button>
+                    <button class="key-button" onclick="inputKey('|')">|</button>
+                    <button class="key-button" onclick="inputKey(';')">;</button>
+                    <button class="key-button" onclick="inputKey(':')">:</button>
+                    <button class="key-button" onclick="inputKey('\'')">'</button>
+                    <button class="key-button" onclick="inputKey('"')">"</button>
+                    <button class="key-button" onclick="inputKey(',')">,</button>
+                    <button class="key-button" onclick="inputKey('.')">.</button>
+                    <button class="key-button" onclick="inputKey('/')">/</button>
+                    <button class="key-button" onclick="inputKey('?')">?</button>
+                    <button class="key-button" onclick="inputKey('<')">&lt;</button>
+                    <button class="key-button" onclick="inputKey('>')">&gt;</button>
+                    <button class="key-button" onclick="inputKey('`')">`</button>
+                    <button class="key-button" onclick="inputKey('~')">~</button>
+                </div>
+                
+                <div id="keyboardService" class="keyboard-grid grid-9" style="display: none;">
+                    <button class="key-button" onclick="inputKey('V')">
+                        <span class="key-label">V</span>
+                        <span class="key-desc">自动化歌手</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('YMK')">
+                        <span class="key-label">YMK</span>
+                        <span class="key-desc">Yumiko新语</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('7')">
+                        <span class="key-label">7</span>
+                        <span class="key-desc">AI服务</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('W')">
+                        <span class="key-label">W</span>
+                        <span class="key-desc">外引壁纸</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('D')">
+                        <span class="key-label">D</span>
+                        <span class="key-desc">长篇日常</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('E')">
+                        <span class="key-label">E</span>
+                        <span class="key-desc">业余研究</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('N')">
+                        <span class="key-label">N</span>
+                        <span class="key-desc">小说</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey('<=','back')">
+                        <span class="key-label">&lt;=</span>
+                        <span class="key-desc">返回上级</span>
+                    </button>
+                    <button class="key-button" onclick="inputKey(';;','separator')">
+                        <span class="key-label">;;</span>
+                        <span class="key-desc">多级分隔</span>
+                    </button>
+                </div>
+                
+                <div class="control-buttons">
+                    <button class="key-button backspace" onclick="backspace()">⌫ 退格</button>
+                    <button class="control-button clear-button" onclick="clearInput()">清空</button>
+                    <button class="control-button execute-button" onclick="executeCommand()">执行指令</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentInput = '';
+        let navigationStack = [];
+        let currentKeyboard = 'main';
+        
+        // 服务数据库
+        const serviceDatabase = {
+            '1': {
+                title: '实验室站群导航',
+                content: `
+                    <h2>🧪 实验室站群导航</h2>
+                    <div class="menu-item" onclick="executeCommand('1;NK05J10')">
+                        <div class="menu-item-title">NK05J10 - 主实验室</div>
+                        <div class="menu-item-desc">核心实验室站点，包含主要研究项目</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('1;ARCHIVE')">
+                        <div class="menu-item-title">ARCHIVE - 归档中心</div>
+                        <div class="menu-item-desc">历史项目归档与备份系统</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('1;DEV')">
+                        <div class="menu-item-title">DEV - 开发环境</div>
+                        <div class="menu-item-desc">开发测试环境与沙盒</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('1;DATA')">
+                        <div class="menu-item-title">DATA - 数据中心</div>
+                        <div class="menu-item-desc">实验数据存储与分析平台</div>
+                    </div>
+                `,
+                submenu: {
+                    'NK05J10': '主实验室站点 - 核心研究设施',
+                    'ARCHIVE': '归档中心 - 历史项目存储',
+                    'DEV': '开发环境 - 测试与开发',
+                    'DATA': '数据中心 - 存储与分析'
+                }
+            },
+            '2': {
+                title: '实验室日志',
+                content: `
+                    <h2>📋 实验室日志系统</h2>
+                    <div class="menu-item" onclick="executeCommand('2;TODAY')">
+                        <div class="menu-item-title">今日日志</div>
+                        <div class="menu-item-desc">查看今天的实验室活动记录</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('2;WEEK')">
+                        <div class="menu-item-title">本周总结</div>
+                        <div class="menu-item-desc">本周实验进展与成果汇总</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('2;MONTH')">
+                        <div class="menu-item-title">月度报告</div>
+                        <div class="menu-item-desc">月度研究进展详细报告</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('2;SEARCH')">
+                        <div class="menu-item-title">日志搜索</div>
+                        <div class="menu-item-desc">按关键词搜索历史日志</div>
+                    </div>
+                `,
+                submenu: {
+                    'TODAY': '今日日志 - 2025年9月24日',
+                    'WEEK': '本周总结 - 第39周',
+                    'MONTH': '月度报告 - 2025年9月',
+                    'SEARCH': '日志搜索 - 关键词检索'
+                }
+            },
+            '3': {
+                title: '文库系统',
+                content: `
+                    <h2>📚 文库系统</h2>
+                    <div class="menu-item" onclick="executeCommand('3;YMK')">
+                        <div class="menu-item-title">Yumiko新语</div>
+                        <div class="menu-item-desc">Yumiko的最新创作与思考</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('3;7')">
+                        <div class="menu-item-title">AI文摘</div>
+                        <div class="menu-item-desc">人工智能相关文摘与论文</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('3;D')">
+                        <div class="menu-item-title">长篇日常</div>
+                        <div class="menu-item-desc">日常生活记录与感悟</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('3;E')">
+                        <div class="menu-item-title">业余研究</div>
+                        <div class="menu-item-desc">业余时间的研究项目</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('3;N')">
+                        <div class="menu-item-title">小说</div>
+                        <div class="menu-item-desc">原创小说作品</div>
+                    </div>
+                `,
+                submenu: {
+                    'YMK': 'Yumiko新语 - 创作专栏',
+                    '7': 'AI文摘 - 人工智能文献',
+                    'D': '长篇日常 - 生活记录',
+                    'E': '业余研究 - 研究项目',
+                    'N': '小说 - 原创作品'
+                }
+            },
+            'FS': {
+                title: '音乐台',
+                content: `
+                    <h2>🎵 音乐台</h2>
+                    <div class="menu-item" onclick="executeCommand('FS;V')">
+                        <div class="menu-item-title">V - 自动化歌手</div>
+                        <div class="menu-item-desc">AI虚拟歌手音乐库</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('FS;M')">
+                        <div class="menu-item-title">M - 音乐片</div>
+                        <div class="menu-item-desc">经典音乐片收藏</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('FS;7')">
+                        <div class="menu-item-title">7 - AI翻唱</div>
+                        <div class="menu-item-desc">AI翻唱作品集合</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('FS;PLAY')">
+                        <div class="menu-item-title">🎶 随机播放</div>
+                        <div class="menu-item-desc">从音乐库中随机播放</div>
+                    </div>
+                `,
+                submenu: {
+                    'V': '自动化歌手 - 虚拟歌姬',
+                    'M': '音乐片 - 经典收藏',
+                    '7': 'AI翻唱 - 智能翻唱',
+                    'PLAY': '随机播放 - 音乐欣赏'
+                }
+            },
+            'L': {
+                title: '历史归档',
+                content: `
+                    <h2>📚 历史归档</h2>
+                    <div class="menu-item" onclick="executeCommand('L;2025')">
+                        <div class="menu-item-title">2025年归档</div>
+                        <div class="menu-item-desc">2025年度项目与活动归档</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('L;2024')">
+                        <div class="menu-item-title">2024年归档</div>
+                        <div class="menu-item-desc">2024年度项目与活动归档</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('L;OLD')">
+                        <div class="menu-item-title">早期归档</div>
+                        <div class="menu-item-desc">2024年以前的历史归档</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('L;SEARCH')">
+                        <div class="menu-item-title">归档搜索</div>
+                        <div class="menu-item-desc">搜索历史归档内容</div>
+                    </div>
+                `,
+                submenu: {
+                    '2025': '2025年归档 - 当前年度',
+                    '2024': '2024年归档 - 历史年度',
+                    'OLD': '早期归档 - 历史资料',
+                    'SEARCH': '归档搜索 - 内容检索'
+                }
+            },
+            'T': {
+                title: '工部（实用工具）',
+                content: `
+                    <h2>🔧 工部 - 实用工具集</h2>
+                    <div class="menu-item" onclick="executeCommand('T;CALC')">
+                        <div class="menu-item-title">计算器</div>
+                        <div class="menu-item-desc">科学计算器与单位转换</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('T;CONVERT')">
+                        <div class="menu-item-title">格式转换</div>
+                        <div class="menu-item-desc">文档、图片、音视频格式转换</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('T;ENCRYPT')">
+                        <div class="menu-item-title">加密工具</div>
+                        <div class="menu-item-desc">文本加密与解密服务</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('T;GENERATE')">
+                        <div class="menu-item-title">生成器</div>
+                        <div class="menu-item-desc">二维码、条形码、密码生成</div>
+                    </div>
+                `,
+                submenu: {
+                    'CALC': '计算器 - 科学计算',
+                    'CONVERT': '格式转换 - 文件处理',
+                    'ENCRYPT': '加密工具 - 安全服务',
+                    'GENERATE': '生成器 - 实用工具'
+                }
+            },
+            'DT': {
+                title: '富文本表格',
+                content: `
+                    <h2>📊 富文本表格系统</h2>
+                    <div class="menu-item" onclick="executeCommand('DT;1')">
+                        <div class="menu-item-title">数据表</div>
+                        <div class="menu-item-desc">实验数据与统计分析表格</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('DT;2')">
+                        <div class="menu-item-title">语料库</div>
+                        <div class="menu-item-desc">语言学研究语料库</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('DT;3')">
+                        <div class="menu-item-title">有线电视表</div>
+                        <div class="menu-item-desc">电视节目时间表</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('DT;4')">
+                        <div class="menu-item-title">交通表</div>
+                        <div class="menu-item-desc">交通时刻与路线信息</div>
+                    </div>
+                `,
+                submenu: {
+                    '1': '数据表 - 实验数据',
+                    '2': '语料库 - 语言研究',
+                    '3': '电视表 - 节目时间',
+                    '4': '交通表 - 出行信息'
+                }
+            },
+            'M': {
+                title: '图库',
+                content: `
+                    <h2>🖼️ 图库系统</h2>
+                    <div class="menu-item" onclick="executeCommand('M;1')">
+                        <div class="menu-item-title">地图</div>
+                        <div class="menu-item-desc">地理信息与导航地图</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('M;2')">
+                        <div class="menu-item-title">统计图表</div>
+                        <div class="menu-item-desc">数据可视化图表</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('M;3')">
+                        <div class="menu-item-title">视觉设计</div>
+                        <div class="menu-item-desc">设计作品与创意图片</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('M;7')">
+                        <div class="menu-item-title">AI绘画</div>
+                        <div class="menu-item-desc">人工智能生成的艺术作品</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('M;W')">
+                        <div class="menu-item-title">外引壁纸</div>
+                        <div class="menu-item-desc">精选壁纸图片收藏</div>
+                    </div>
+                `,
+                submenu: {
+                    '1': '地图 - 地理信息',
+                    '2': '统计图表 - 数据可视化',
+                    '3': '视觉设计 - 创意作品',
+                    '7': 'AI绘画 - 智能艺术',
+                    'W': '外引壁纸 - 精选壁纸'
+                }
+            },
+            'Q': {
+                title: '帮助支持',
+                content: `
+                    <h2>❓ 指令解释与联系支持</h2>
+                    <div class="menu-item" onclick="executeCommand('Q;HELP')">
+                        <div class="menu-item-title">指令帮助</div>
+                        <div class="menu-item-desc">查看所有可用指令说明</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('Q;CONTACT')">
+                        <div class="menu-item-title">联系支持</div>
+                        <div class="menu-item-desc">获取技术支持与反馈</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('Q;ABOUT')">
+                        <div class="menu-item-title">关于系统</div>
+                        <div class="menu-item-desc">系统信息与版本说明</div>
+                    </div>
+                    <div class="menu-item" onclick="executeCommand('Q;UPDATE')">
+                        <div class="menu-item-title">更新日志</div>
+                        <div class="menu-item-desc">查看系统更新历史</div>
+                    </div>
+                `,
+                submenu: {
+                    'HELP': '指令帮助 - 使用说明',
+                    'CONTACT': '联系支持 - 技术支持',
+                    'ABOUT': '关于系统 - 系统信息',
+                    'UPDATE': '更新日志 - 版本历史'
+                }
+            }
+        };
+        
+        // 切换键盘布局
+        function switchKeyboard(type) {
+            // 隐藏所有键盘
+            document.querySelectorAll('[id^="keyboard"]').forEach(kb => kb.style.display = 'none');
+            
+            // 移除所有标签的active类
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            
+            // 显示选中的键盘
+            document.getElementById('keyboard' + type.charAt(0).toUpperCase() + type.slice(1)).style.display = 'grid';
+            
+            // 添加active类到当前标签
+            event.target.classList.add('active');
+            
+            currentKeyboard = type;
+        }
+        
+        // 输入字符
+        function inputKey(key, type = 'normal') {
+            if (type === 'back') {
+                // 返回上级
+                if (navigationStack.length > 0) {
+                    navigationStack.pop();
+                    const prevCommand = navigationStack.length > 0 ? navigationStack[navigationStack.length - 1] : '';
+                    if (prevCommand) {
+                        executeCommand(prevCommand, false);
+                    } else {
+                        showWelcome();
+                    }
+                } else {
+                    showWelcome();
+                }
+                return;
+            }
+            
+            if (type === 'separator') {
+                currentInput += ';;';
+            } else {
+                currentInput += key;
+            }
+            updateInputDisplay();
+        }
+        
+        // 更新输入显示
+        function updateInputDisplay() {
+            const display = document.getElementById('inputDisplay');
+            if (currentInput) {
+                display.textContent = currentInput;
+                display.style.color = '#333';
+            } else {
+                display.innerHTML = '<span style="color: #999;">等待输入...</span>';
+            }
+        }
+        
+        // 退格
+        function backspace() {
+            if (currentInput.length > 0) {
+                currentInput = currentInput.slice(0, -1);
+                updateInputDisplay();
+            }
+        }
+        
+        // 清空输入
+        function clearInput() {
+            currentInput = '';
+            updateInputDisplay();
+        }
+        
+        // 显示欢迎信息
+        function showWelcome() {
+            const responseArea = document.getElementById('responseArea');
+            responseArea.innerHTML = `
+                <div class="welcome-message">
+                    <h2>欢迎使用实验室NK05J10服务台</h2>
+                    <p>请使用下方键盘输入指令，或点击键盘标签切换不同布局</p>
+                    <p>当前状态：<span class="status-indicator status-online"></span>在线</p>
+                </div>
+            `;
+            navigationStack = [];
+        }
+        
+        // 显示加载状态
+        function showLoading() {
+            const responseArea = document.getElementById('responseArea');
+            responseArea.innerHTML = '<div class="loading">正在处理请求</div>';
+        }
+        
+        // 执行命令
+        function executeCommand(command = null, addToStack = true) {
+            const cmd = command || currentInput;
+            if (!cmd) {
+                alert('请输入指令');
+                return;
+            }
+            
+            showLoading();
+            
+            // 添加到导航栈
+            if (addToStack) {
+                navigationStack.push(cmd);
+            }
+            
+            // 模拟异步处理
+            setTimeout(() => {
+                processCommand(cmd);
+            }, 500);
+            
+            // 清空输入
+            if (!command) {
+                currentInput = '';
+                updateInputDisplay();
+            }
+        }
+        
+        // 处理命令
+        function processCommand(cmd) {
+            const responseArea = document.getElementById('responseArea');
+            const parts = cmd.split(';;');
+            let content = '';
+            let breadcrumb = '';
+            
+            // 构建面包屑导航
+            if (navigationStack.length > 0) {
+                breadcrumb = '<div class="breadcrumb">';
+                breadcrumb += '<span onclick="showWelcome()">🏠 首页</span> &gt; ';
+                navigationStack.forEach((item, index) => {
+                    if (index < navigationStack.length - 1) {
+                        breadcrumb += `<span onclick="executeCommand('${item}', false)">${item}</span> &gt; `;
+                    } else {
+                        breadcrumb += `<strong>${item}</strong>`;
+                    }
+                });
+                breadcrumb += '</div>';
+            }
+            
+            // 处理多级命令
+            let currentService = serviceDatabase;
+            let servicePath = [];
+            
+            for (let part of parts) {
+                if (currentService[part]) {
+                    currentService = currentService[part];
+                    servicePath.push(part);
+                } else if (currentService.submenu && currentService.submenu[part]) {
+                    // 处理子菜单
+                    content = `
+                        <h2>${currentService.title} - ${part}</h2>
+                        <p>${currentService.submenu[part]}</p>
+                        <div style="margin-top: 20px;">
+                            <button class="key-button" onclick="executeCommand('${servicePath.join(';;')}')">
+                                返回上级
+                            </button>
+                        </div>
+                    `;
+                    break;
+                } else {
+                    content = `<p style="color: #e74c3c;">❌ 未找到服务：${part}</p>`;
+                    break;
+                }
+            }
+            
+            // 如果找到了服务内容
+            if (currentService.content && !content) {
+                content = currentService.content;
+            } else if (!content) {
+                content = `<p style="color: #e74c3c;">❌ 指令格式错误或不存在</p>`;
+            }
+            
+            // 显示响应内容
+            responseArea.innerHTML = breadcrumb + '<div class="response-content">' + content + '</div>';
+            
+            // 滚动到顶部
+            responseArea.scrollTop = 0;
+        }
+        
+        // 键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            // 数字键
+            if (e.key >= '0' && e.key <= '9') {
+                inputKey(e.key);
+            }
+            // 字母键
+            else if (e.key.length === 1 && e.key.match(/[a-zA-Z]/)) {
+                inputKey(e.key.toUpperCase());
+            }
+            // 特殊字符
+            else if (e.key.match(/[;,.<>?\/:\{\}
+ $$$$ \-_=+\|`~!@#$%^&*()]/)) {
+                inputKey(e.key);
+            }
+            // 回车执行
+            else if (e.key === 'Enter') {
+                executeCommand();
+            }
+            // 退格
+            else if (e.key === 'Backspace') {
+                backspace();
+            }
+            // ESC清空
+            else if (e.key === 'Escape') {
+                clearInput();
+            }
+        });
+        
+        // 初始化
+        window.onload = function() {
+            showWelcome();
+            updateInputDisplay();
+        };
+        
+        // 添加一些动态效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为键盘按钮添加点击效果
+            document.querySelectorAll('.key-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 100);
+                });
+            });
+            
+            // 添加页面加载动画
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
