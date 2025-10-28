@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>（架空）礼天有线电视网络频道表｜20250928</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--theme:#BE1347}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;font-size:10px;background:#f6f6f6;color:#333;display:flex;flex-direction:column;min-height:180vh}
+header{padding:8px 12px 6px;background:#fff;border-bottom:2px solid var(--theme);flex-shrink:0}
+h2{display:inline-block;font-size:16px;margin-right:10px;color:var(--theme)}
+input{padding:5px 8px;width:160px;border:1px solid #ccc;border-radius:4px}
+.legend{margin:5px 0 3px;font-size:10px;display:flex;flex-wrap:wrap;gap:6px}
+.legend span{display:inline-flex;align-items:center;padding:2px 6px;border-radius:3px;background:#f2f2f2}
+/* 画幅不超过1.7倍窗口高度 */
+.table-scroll{flex:1 1 0;overflow:auto;max-height:180vh}
+table{border-collapse:collapse;table-layout:fixed;width:100%}
+thead tr:first-child th{position:sticky;top:0;background:#fff;z-index:10;border-bottom:2px solid var(--theme);cursor:pointer}
+tbody th{position:sticky;left:0;background:#fff;z-index:5;border-right:2px solid #ddd}
+th,td{padding:4px 6px;border:1px solid #e8e8e8;text-align:center;white-space:nowrap}
+td.ch-name{text-align:left;font-weight:600}
+td.live-and-re{white-space:normal;word-break:break-word}
+td.note{white-space:normal;word-break:break-word}
+.central{background:#ffecec}.prov{background:#fff5e6}.local{background:#f6ffed}
+.sat{background:#e6f7ff}.nirole1sat{background:#99ffff}.pay{background:#f9f0ff}.nirole1pay{background:#ccdddd}.foreign{background:#fff0f6}.nirole3{background:#cceeef}
+.centralradio{background:#eecc88}.provradio{background:#eeee88}.localradio{background:#aaee88}
+footer{padding:6px 12px;font-size:10px;color:#666;background:#fff;border-top:1px solid #ddd;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<header>
+  <h2>礼天有线电视网络频道表｜20251030</h2>
+  <input id="s" placeholder="搜索号/名/范围/备注">
+  <strong>表格说明：本文内容纯属虚构，不必斤斤较真。由Kimi提供技术支持。余者见下。</strong><br>
+  礼天省内城市与频道设定主要参考地球黑龙江省；码位排布参照地球广东IPTV和Unicode编码表。码位以高清优先，频道已支持4K和标清切换，无需转义。<b>4xx区段外语频道均仅限三星级以上酒店业者观看（且默认非回看）。</b><br>
+  现行机顶盒按系统架构可分为Android 10版和Linux版两种，实装频道规模彼此有别，详见下表；对于IPTV只讨论频道存在情况，因<b>本表不涉及IPTV排序</b>。
+  <div class="legend">
+    <span>图标释义：✓免费　⓻/⓹回看天数　△非回看　✕未实装　￥需购买PRO　＊酒店　Ⓐ安卓/ⓁLinux　?其余城市 <br>城市车牌：A寒芝崖　B仙海　C镕涵　D翔明　E筱庄　F凛琛　G铃广　H鸿萍　J沫靳江　K锡典　L歆羽　M慧湾　N秦尹　P周明山　R艾穹　S永贞</span>
+    分类说明：
+  <span style="background:#ffecec;border:1px solid #ccc;">中央台</span>
+  <span style="background:#fff5e6;border:1px solid #ccc;">礼天省台</span>
+  <span style="background:#f6ffed;border:1px solid #ccc;">地市台</span>
+  <span style="background:#e6f7ff;border:1px solid #ccc;">地球中国卫视</span>
+  <span style="background:#99ffff;border:1px solid #ccc;">Nirole-1华语卫视</span>
+  <span style="background:#f9f0ff;border:1px solid #ccc;">地球专业付费</span>
+  <span style="background:#ccdddd;border:1px solid #ccc;">Nirole-1华语付费</span>
+  <span style="background:#fff0f6;border:1px solid #ccc;">地球外语酒店</span>
+  <span style="background:#cceeef;border:1px solid #ccc;">Nirole-3外语酒店</span>
+  <span style="background:#eecc88;border:1px solid #ccc;">地球央广</span>
+  <span style="background:#eeee88;border:1px solid #ccc;">礼天广播</span>
+  <span style="background:#aaee88;border:1px solid #ccc;">地市广播</span>
+  </div>
+</header>
+
+<div class="table-scroll">
+  <table id="t">
+    <thead>
+      <tr>
+        <th onclick="sort(0)">频道号</th>
+        <th onclick="sort(1)">频道名</th>
+        <th onclick="sort(2)">直播回看</th>
+        <th onclick="sort(3)">覆盖范围·备注</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<footer>
+  <strong>礼天有线电视网络有限公司（架空）</strong><br>
+  地址：礼天省寒芝崖市中华区华声路一段14号（514号邮箱，并非位于地球）<br>
+  官网：<a href="https://www.ltyxdsnet.com/" target="_blank">www.ltyxdsnet.com</a> (bushi)<br>
+  服务专线（地球打不通）：(0E51)961919<br>
+  报障与安全响应报告专线（地球上接不来）：(0E51)961919-810
+</footer>
+
+<script>
+/* ================= 原表数据 ================= */
+const raw=[
+[1,'CCTV-1','✓⓻','','central'],
+[3,'CCTV-2','✓⓻','','central'],
+[4,'CCTV-4','✓⓻','亚洲版','central'],
+[5,'CCTV-7','✓⓻','','central'],
+[6,'CCTV-10','✓⓻','','central'],
+[7,'CCTV-11','✓⓻','','central'],
+[8,'CCTV-12','✓⓻','','central'],
+[9,'CCTV-13','✓⓻','','central'],
+[10,'CCTV-14','✓⓻','','central'],
+[11,'CCTV-15','✓⓻','','central'],
+[12,'CCTV-9','✓⓻','','central'],
+[13,'CCTV-17','✓⓻','','central'],
+[51,'重温经典Ⓐ','✓⓻','中广电公共电视','central'],
+[60,'百姓健康','✓⓻','中国卫健委','central'],
+[63,'CCTV-3','✓⓻','2021年前码位44','central'],
+[65,'CCTV-5','✓⓻','2021年前码位45','central'],
+[66,'CCTV-6','✓⓻','2021年前码位46','central'],
+[68,'CCTV-8','✓⓻','2021年前码位47','central'],
+[70,'CCTV-16','✓⓻','','central'],
+[72,'重温经典Ⓛ','✓⓻','中广电公共电视','central'],
+[74,'CCTV-4K','✓⓻Ⓐ','纯4K','central'],
+[75,'CCTV-5+','✓⓻','','central'],
+[80,'CGTN英','✓⓻','','central'],
+[81,'CETV-1','✓⓻','','central'],
+[82,'CETV-2','✓⓻','','central'],
+[83,'CGTN俄','✓⓻','','central'],
+[84,'CETV-4','✓⓻','','central'],
+[85,'CGTN西','✓⓻','','central'],
+[86,'CGTN法','✓⓻','','central'],
+[87,'CGTN阿','✓⓻','','central'],
+[88,'CGTN纪录','✓⓻','','central'],
+[89,'中国天气','✓⓻','中国气象局','central'],
+[2,'礼天卫视','✓⓻','','prov'],
+[14,'礼天经信民生','✓⓻','','prov'],
+[15,'礼天文艺','✓⓻','','prov'],
+[16,'礼天都市','✓⓻','','prov'],
+[17,'礼天农技科工','✓⓻','','prov'],
+[18,'礼天影视剧','✓⓻','','prov'],
+[19,'礼天青少年','✓⓻','对未成年广播','prov'],
+[20,'新礼天电视','✓⓻','英法德俄韩日6语','prov'],
+[21,'礼天教育台','✓⓻','','prov'],
+[59,'良华原电视','✓⓻','生产总队','prov'],
+[22,'寒芝崖新闻综合','✓⓻','A','local'],
+[23,'寒芝崖生活教育','✓⓻','A','local'],
+[24,'寒芝崖文艺影视','✓⓻','A','local'],
+[25,'寒芝崖北珩经信','✓⓻','A','local'],
+[26,'仙海综合','✓⓻','B','local'],
+[27,'仙海经信','✓⓻','B','local'],
+[28,'仙海体育','✓⓻','B','local'],
+[29,'仙海都市','✓⓻','B','local'],
+[30,'仙海科教','✓⓻','B','local'],
+[31,'镕涵新闻综合','✓⓻','C','local'],
+[32,'镕涵民生服务','✓⓻','C','local'],
+[33,'镕涵文旅社教','✓⓻','C','local'],
+[34,'翔明新闻','✓⓻','D','local'],
+[35,'翔明社会','✓⓻','D','local'],
+[36,'筱庄综合','✓⓻','E','local'],
+[37,'筱庄社科法治','✓⓻','E','local'],
+[38,'筱庄新生都市','✓⓻','E','local'],
+[39,'凛琛新闻综合','✓⓻','F','local'],
+[40,'凛琛琛东文史','✓⓻','F','local'],
+[41,'铃广综合','✓⓻','G','local'],
+[42,'铃广影视','✓⓻','G','local'],
+[43,'铃广文教','✓⓻','G','local'],
+[48,'鸿萍综合','✓⓻','H','local'],
+[50,'沫靳江综合','✓⓻','J','local'],
+[52,'锡典综合','✓⓻','K','local'],
+[53,'锡典卫生社教','✓⓻','K','local'],
+[54,'歆羽新闻综合','✓⓻','L','local'],
+[55,'歆羽文化生活','✓⓻','L','local'],
+[56,'慧湾新闻综合','✓⓻','M','local'],
+[57,'慧湾工农生活','✓⓻','M','local'],
+[58,'慧湾远程教育','✓⓻','M','local'],
+[61,'秦尹综合','✓⓻','N','local'],
+[62,'秦尹环保生活','✓⓻','N','local'],
+[67,'周明山新闻综合','✓⓻','P','local'],
+[69,'艾穹综合资讯','✓⓻','R','local'],
+[71,'永贞电视','✓⓻','S','local'],
+[73,'县级台','✓⓻','保留码位','local'],
+[100,'北京卫视','✓⓹HR、✓⓻?','默认4K','sat'],
+[101,'湖南卫视','✓⓹DHMPRS、✓⓻?','默认4K','sat'],
+[102,'湖北卫视','✓⓹LR、✓⓻?','','sat'],
+[103,'广东卫视','✓⓹LR、✓⓻?','默认4K','sat'],
+[104,'广西卫视','✓⓻','','sat'],
+[105,'河南卫视','✓⓹LR、✓⓻?','￥C','sat'],
+[106,'河北卫视','✓⓹LR、✓⓻?','￥C','sat'],
+[107,'山东卫视','✓⓻','默认4K','sat'],
+[108,'山西卫视','✓⓻','','sat'],
+[109,'江苏卫视','✓⓻','默认4K','sat'],
+[110,'浙江卫视','✓⓹DHMPRS、✓⓻?','默认4K','sat'],
+[111,'黑龙江卫视','✓⓻','','sat'],
+[112,'江西卫视','✓⓻','','sat'],
+[113,'新疆卫视','✓⓻','','sat'],
+[114,'云南卫视','✓⓹BCGHJL、△DMRS、✓⓻?','￥JKLMN','sat'],
+[115,'贵州卫视','✓⓻','￥LM','sat'],
+[116,'福建东南卫视','✓⓻','￥DEGJK','sat'],
+[117,'吉林卫视','✓⓻','','sat'],
+[118,'安徽卫视','✓⓹LR、△MS、✓⓻?','','sat'],
+[119,'四川卫视','✓⓻','默认4K','sat'],
+[120,'西藏卫视','✓⓹BCGHJLMR、✓⓻?','','sat'],
+[121,'辽宁卫视','￥⓻BL、✓⓻?','','sat'],
+[122,'宁夏卫视','✓⓹HJL、△DMRS、✓⓻?','','sat'],
+[123,'青海卫视','✓⓻','','sat'],
+[124,'甘肃卫视','✓⓻','','sat'],
+[125,'陕西卫视','✓⓻','','sat'],
+[126,'内蒙古卫视','✓⓹KN、✓⓻?','','sat'],
+[127,'上海东方卫视','✓⓻','ⒶB、默认4K','sat'],
+[128,'天津卫视','✓⓻','','sat'],
+[129,'重庆卫视','✓⓻','','sat'],
+[130,'海南卫视','✓⓻','','sat'],
+[131,'深圳卫视','✓⓻','默认4K','sat'],
+[132,'厦门卫视','✓⓻','','sat'],
+[133,'吉林延边卫视','✓⓻','汉语/朝鲜语(咸镜)','sat'],
+[134,'三沙卫视','✓⓻','￥N、Ⓐ','sat'],
+[135,'新疆兵团卫视','✓⓻','Ⓐ','sat'],
+[137,'湖南金鹰卡通','✓⓻、✕H、△M','￥EG、对未成年广播','sat'],
+[138,'北京卡酷少儿','✓⓻、✕BE、△M','￥LP、对未成年广播','sat'],
+[141,'广东嘉佳卡通','△M、✓⓻?','￥EG、对未成年广播','sat'],
+[142,'湖南金鹰纪实','✓⓻','科教类','sat'],
+[143,'四川-10康巴','✓⓻','Ⓐ￥MR、ⒶH、￥DE、IPTV中无','sat'],
+[144,'北京纪实科教','✓⓻','科教类','sat'],
+[145,'山东教育卫视','✓⓻','科教类','sat'],
+[146,'陕西农林卫视','✓⓻','农业类','sat'],
+[147,'内蒙古-M1蒙语','✓⓻','IPTV中无','sat'],
+[148,'新疆-2维语','','￥ⒶR、IPTV中无','sat'],
+[149,'青海-2安多','✕AEMR'、'✓⓻?、￥S'、'IPTV中无','sat'],
+[151,'岑阳卫视','✓⓻','','nirole1sat'],
+[152,'瑾怀卫视','✓⓻','','nirole1sat'],
+[153,'鹤游卫视','✓⓻','','nirole1sat'],
+[154,'桐西卫视','✓⓻','￥GHKS','nirole1sat'],
+[155,'翊春卫视','✓⓻','','nirole1sat'],
+[156,'准枫卫视','✓⓻','','nirole1sat'],
+[157,'玄黄卫视','✓⓻','省级市','nirole1sat'],
+[158,'孙榴卫视','✓⓻','','nirole1sat'],
+[159,'茵北卫视','✓⓻','','nirole1sat'],
+[160,'茵南卫视','✓⓻','','nirole1sat'],
+[161,'辉东卫视','✓⓻','','nirole1sat'],
+[162,'辉西卫视','✓⓻','','nirole1sat'],
+[163,'柴海卫视','✓⓻','','nirole1sat'],
+[164,'薇原卫视','✕D、✓⓻?','￥CGHJ','nirole1sat'],
+[165,'莱关卫视','✓⓻','','nirole1sat'],
+[166,'宕竑卫视','✓⓻','￥KLR','nirole1sat'],
+[167,'朔云卫视','✓⓻','','nirole1sat'],
+[168,'波江卫视','✕FL、✓⓻?','￥JKPS','nirole1sat'],
+[169,'兆棠卫视','✓⓻','','nirole1sat'],
+[170,'纸月智峰卫视','✓⓻','鹤游地级','nirole1sat'],
+[171,'璃阳卫视','✓⓻','岑阳地级','nirole1sat'],
+[172,'波江-8文旅纪实','✕J、✓⓻?','￥CDPR、汉语/苗语','nirole1sat'],
+[173,'柴海教育卫视','✓⓻','','nirole1sat'],
+[174,'鹤游鉴海卫视','✕DJ、✓⓻?','生活类','nirole1sat'],
+[175,'天阶卫视','✓⓻','准枫省会','nirole1sat'],
+[176,'南炽卫视','✕B、✓⓻?','孙榴地级','nirole1sat'],
+[177,'树海新闻综合','✓⓻','岑阳地级','nirole1sat'],
+[178,'翊春启铃卡通','✓⓻','','nirole1sat'],
+[179,'茵南天龙卡通','✓⓻','','nirole1sat'],
+[180,'魂泽-4城市生活','✕JS、✓⓻?','￥MN、Ⓛ、薇原地级，汉语/卫藏音','nirole1sat'],
+[181,'朔云叙江卫视','✓⓻','生活类','nirole1sat'],
+[182,'玄黄万花少儿','✕GJ、✓⓻?','对未成年广播','nirole1sat'],
+[183,'准枫七光体育','✓⓻','IPTV中无','nirole1sat'],
+[184,'兆歌春华卫视','✓⓻','农业类','nirole1sat'],
+[185,'辉东珂泽卡通','✓⓻','￥CHNPS、对未成年广播','nirole1sat'],
+[186,'辉东珂泽经济','✓⓻','￥KPN','nirole1sat'],
+[187,'岑阳松鹤卫视','✓⓻','生活类，面向40+年龄群体','nirole1sat'],
+[200,'岁星工程学','✓⓹','鹤游省会、数枫系、赠送','nirole1pay'],
+[201,'准枫21户外台','✓⓹','数枫系、赠送','nirole1pay'],
+[202,'准枫未来音乐台','✓⓹','数枫系、赠送','nirole1pay'],
+[203,'准枫经纬旅游台','✓⓹','数枫系、赠送','nirole1pay'],
+[204,'纸月动能体育','✓⓹','鹤游地级、数枫系、赠送','nirole1pay'],
+[205,'纸月家居百搭','✓⓹','鹤游地级、数枫系、赠送','nirole1pay'],
+[206,'纸月江湖探索','✓⓹','鹤游地级、数枫系、赠送','nirole1pay'],
+[207,'鹤游卫生保健','✓⓹','数枫系、赠送','nirole1pay'],
+[208,'鹤游棋魂','✓⓹','数枫系、赠送','nirole1pay'],
+[209,'鹤游天球眼','✓⓹','数枫系、赠送','nirole1pay'],
+[210,'鹤游教育星空','✓⓹','数枫系、赠送','nirole1pay'],
+[211,'璃阳三大球','✓⓹','岑阳地级、数枫系、赠送','nirole1pay'],
+[212,'翊春海典','✓⓹','数枫系、赠送','nirole1pay'],
+[213,'翊春产经部落','✓⓹','数枫系、赠送','nirole1pay'],
+[214,'辉东七陆新潮','✓⓹','数枫系、赠送','nirole1pay'],
+[215,'辉东外语启蒙','✓⓹','数枫系、赠送','nirole1pay'],
+[216,'栋泽电波新语','✓⓹','岑阳地级、数枫系、赠送','nirole1pay'],
+[217,'柱东天使动画','✓⓹','翊春地级、数枫系、赠送','nirole1pay'],
+[218,'柴海画屏剧场','✓⓹','数枫系、赠送','nirole1pay'],
+[225,'瑾怀赛马','￥⓹','菁葵系、PRO','nirole1pay'],
+[226,'衍川绿色生活','￥⓹','准枫地级、菁葵系、PRO','nirole1pay'],
+[227,'茵南电算世界','￥⓹','菁葵系、PRO','nirole1pay'],
+[228,'茵南文哲视角','￥⓹','菁葵系、PRO','nirole1pay'],
+[229,'茵南少女时空','￥⓹','菁葵系、PRO','nirole1pay'],
+[230,'岑阳中华民谣','￥⓹','菁葵系、PRO','nirole1pay'],
+[231,'岑阳房车天下','￥⓹','菁葵系、PRO','nirole1pay'],
+[232,'岑阳芳华时尚','￥⓹','菁葵系、PRO','nirole1pay'],
+[233,'九谷山文化之声','￥⓹','辉东省会、菁葵系、PRO','nirole1pay'],
+[234,'孙州游戏物语','￥⓹','孙榴省会、菁葵系、PRO','nirole1pay'],
+[235,'孙州生活速递','￥⓹','辉东省会、菁葵系、PRO','nirole1pay'],
+[236,'莱关药膳','￥⓹','菁葵系、PRO','nirole1pay'],
+[237,'莱关能源','￥⓹','菁葵系、PRO','nirole1pay'],
+[238,'莱关美艺','￥⓹','菁葵系、PRO','nirole1pay'],
+[239,'辉东魅力休闲','￥⓹','菁葵系、PRO','nirole1pay'],
+[242,'清南绫衣旋风','￥⓹','柴海省会、清音系、PRO','nirole1pay'],
+[243,'清南思维开发','￥⓹','柴海省会、清音系、PRO','nirole1pay'],
+[244,'瑶玑学海','￥⓹','莱关省会、清音系、PRO','nirole1pay'],
+[245,'瑶玑劲歌','￥⓹','莱关省会、清音系、PRO','nirole1pay'],
+[246,'柴海戏苑','￥⓹','清音系、PRO','nirole1pay'],
+[247,'柴海律政精英','￥⓹','清音系、PRO','nirole1pay'],
+[248,'柴海交通大观','￥⓹','清音系、PRO','nirole1pay'],
+[249,'兆歌动漫星云','￥⓹','清音系、PRO','nirole1pay'],
+[250,'瑾怀股市时刻','￥⓹','清音系、PRO','nirole1pay'],
+[251,'玄黄金元宝','￥⓹','寒露系、PRO','nirole1pay'],
+[252,'玄黄银天幕','￥⓹','寒露系、PRO','nirole1pay'],
+[253,'玄黄时代影院','￥⓹','寒露系、PRO','nirole1pay'],
+[254,'玄黄山海经','￥⓹','寒露系、PRO','nirole1pay'],
+[255,'玄黄社教观察','￥⓹','寒露系、PRO','nirole1pay'],
+[256,'玄黄次元海镜','￥⓹','寒露系、PRO','nirole1pay'],
+[257,'玄黄群音会','￥⓹','寒露系、PRO','nirole1pay'],
+[258,'玄黄职场宝典','￥⓹','寒露系、PRO','nirole1pay'],
+[259,'玄黄竞技场','￥⓹','寒露系、PRO','nirole1pay'],
+[271,'天阶水月购物','￥△','PRO','nirole1pay'],
+[272,'玄黄巨龙购物','✓△','省级市','nirole1pay'],
+[273,'璃阳文笙购物','✓△','岑阳地级','nirole1pay'],
+[274,'翊春鲛海购物','✓△','','nirole1pay'],
+[275,'波江万家购物','￥△','PRO','nirole1pay'],
+[276,'岑阳蓝源购物','✓△','','nirole1pay'],
+[277,'柴海霞风购物','￥△','PRO','nirole1pay'],
+[288,'凝羽JDMC当代科创','＊△','EPG补充28、仅限三星级以上酒店业者','nirole1pay'],
+[289,'凝羽JDMC华夏思维','￥△','EPG补充29','nirole1pay'],
+[291,'凝羽魁星ACG','￥△','EPG补充21','nirole1pay'],
+[292,'凝羽创新Global','＊△','EPG补充22、仅限三星级以上酒店业者','nirole1pay'],
+[293,'凝羽禹水新闻台','￥△','EPG补充23','nirole1pay'],
+[300,'央视电视指南','✓⓻','中数系、赠送','pay'],
+[301,'央视文化精品','✓⓻','中数系、赠送','pay'],
+[302,'央视卫生健康','✓⓻','中数系、赠送','pay'],
+[303,'央视风云足球','✓⓻','中数系、赠送','pay'],
+[304,'央视高尔夫网球','✓⓻','中数系、赠送','pay'],
+[305,'央视风云音乐','✓⓻','中数系、赠送','pay'],
+[306,'央视第一剧场','✓⓻','中数系、赠送','pay'],
+[307,'央视怀旧剧场','✓⓻','中数系、赠送','pay'],
+[308,'央视风云剧场','✓⓻','中数系、赠送','pay'],
+[309,'央视世界地理','✓⓻','中数系、赠送','pay'],
+[310,'央视兵器科技','✓⓻','中数系、赠送','pay'],
+[311,'央视女性时尚','✓⓻','中数系、赠送','pay'],
+[312,'央视台球','✓⓻','中数系、赠送','pay'],
+[320,'CETV早期教育','✓⓻','中数系、赠送','pay'],
+[321,'书画','✓⓻','中数系、赠送','pay'],
+[322,'河南国学','✓⓻','中数系、赠送','pay'],
+[323,'重庆汽摩','✓⓻','中数系、赠送','pay'],
+[324,'贵州天元围棋','✓⓻','中数系、赠送','pay'],
+[325,'国广环球奇观','✓⓻','中数系、赠送','pay'],
+[326,'中央新影发现之旅','✓⓻','中数系、赠送','pay'],
+[327,'中央新影老故事','✓⓻','中数系、赠送','pay'],
+[328,'中央新影中学生','✓⓻','中数系、赠送','pay'],
+[331,'CHC家庭影院','￥⓻Ⓐ','华诚系、PRO、Linux无','pay'],
+[332,'CHC影迷电影','￥⓻Ⓐ','华诚系、PRO、Linux无','pay'],
+[333,'CHC动作电影','￥⓻Ⓐ','华诚系、PRO、Linux无','pay'],
+[334,'湖南茶','￥⓻','华诚系、PRO','pay'],
+[335,'湖南快乐垂钓','￥⓻','华诚系、PRO','pay'],
+[336,'湖南先锋乒羽','￥⓻','华诚系、PRO','pay'],
+[341,'河南梨园','￥⓻','华诚系、PRO','pay'],
+[342,'河南武术世界','￥⓻','华诚系、PRO','pay'],
+[343,'河南文物宝库','￥⓻','华诚系、PRO','pay'],
+[345,'辽宁新动漫','￥⓻','华诚系、PRO','pay'],
+[351,'北京优优宝贝','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[352,'北京中华特产','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[353,'北京四海钓鱼','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[354,'北京环球旅游','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[355,'北京生态环境','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[359,'江苏财富天下','✓⓹ACEFHJKLMPS','鼎视系、赠送','pay'],
+[361,'上海东方财经','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[362,'上海动漫秀场','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[363,'上海游戏风云','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[364,'上海乐游','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[365,'上海法治天地','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[366,'上海劲爆体育','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[367,'上海都市剧场','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[368,'上海金色学堂','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[369,'上海生活时尚','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[370,'上海新视觉','✓⓹ABDEGHJMNRS','文广系、赠送','pay'],
+[371,'湖南快乐购','✓△','赠送','pay'],
+[372,'上海东方购物','✓△','赠送','pay'],
+[373,'贵州家有购物','✓△','赠送','pay'],
+[374,'江西风尚购物','✓△','赠送','pay'],
+[375,'浙江好易购','￥△','PRO','pay'],
+[376,'辽宁宜佳购物','✓△','赠送','pay'],
+[391,'凤凰中文','￥△','EPG补充1','pay'],
+[392,'星空卫视','￥△','EPG补充2','pay'],
+[393,'天映频道','＊△','EPG补充3、仅限三星级以上酒店业者','pay'],
+[394,'CHANNEL V','￥△','EPG补充4','pay'],
+[395,'卫视电影台','＊△','EPG补充5、仅限三星级以上酒店业者','pay'],
+[396,'杭州华数求索','￥⓹','Discovery中国代理','pay'],
+[397,'DOXTV','￥⓹','中国艺术档案学会','pay'],
+[401,'SBS World','＊△','韩国','foreign'],
+[402,'KBS World','＊△','韩国','foreign'],
+[403,'Animax','＊△','日本 索尼','foreign'],
+[404,'国家地理','＊△','美国','foreign'],
+[405,'MBC','＊△','韩国','foreign'],
+[406,'VTV4','＊△','越南','foreign'],
+[407,'RTP','＊△','葡萄牙','foreign'],
+[408,'BBC1','＊△','英国','foreign'],
+[409,'NBC','＊△','美国','foreign'],
+[410,'新传媒8','＊△','新加坡','foreign'],
+[411,'ABC','＊△','澳大利亚','foreign'],
+[412,'ARY Digital','＊△','巴基斯坦','foreign'],
+[413,'NHK','＊△','日本','foreign'],
+[414,'东京电视台','＊△','日本','foreign'],
+[415,'TV5','＊△','法国','foreign'],
+[416,'CNN','＊△','美国','foreign'],
+[417,'RT','＊△','俄罗斯','foreign'],
+[418,'C1R','＊△','俄罗斯 第一频道','foreign'],
+[419,'RTI1','＊△','意大利','foreign'],
+[420,'CNA','＊△','新加坡','foreign'],
+[421,'Discovery','＊△','美国','foreign'],
+[422,'AXN','＊△','日本 索尼','foreign'],
+[423,'PBS World','＊△','美国','foreign'],
+[424,'SkyNet Info','＊△','英国','foreign'],
+[425,'TBS','＊△','日本','foreign'],
+[426,'RTR','＊△','俄罗斯 全俄广电Россия-1','foreign'],
+[427,'ESPN1','＊△','美国','foreign'],
+[428,'MTV90s','＊△','美国','foreign'],
+[429,'HBO亚洲','＊△','美国','foreign'],
+[430,'彭博亚洲','＊△','美国','foreign'],
+[431,'CNBC','＊△','美国','foreign'],
+[432,'古巴视野','＊△','古巴','foreign'],
+[433,'富士电视台','＊△','日本','foreign'],
+[434,'DW','＊△','德国','foreign'],
+[435,'TVP','＊△','波兰','foreign'],
+[436,'Cinemax','＊△','美国','foreign'],
+[437,'Capital TV','＊△','印度','foreign'],
+[438,'CTV','＊△','加拿大','foreign'],
+[439,'SkyNet Music','＊△','英国','foreign'],
+[440,'Nick','＊△','美国','foreign'],
+[441,'Nick Jr','＊△','美国','foreign'],
+[442,'FOX','＊△','美国','foreign'],
+[443,'MTV Life','＊△','美国','foreign'],
+[451,'诸天电视2','＊△','仙寰','nirole3'],
+[452,'九舫公共台4','＊△','九舫','nirole3'],
+[453,'BS新宁','＊△','明空','nirole3'],
+[454,'BS天行','＊△','明空','nirole3'],
+[455,'ASM9','＊△','明空 通信协会','nirole3'],
+[456,'涟音15','＊△','雷珂伊','nirole3'],
+[457,'欧里微F2','＊△','雷珂伊','nirole3'],
+[458,'兰华3Kino','＊△','明空','nirole3'],
+[459,'SKRS1','＊△','斯凯韬','nirole3'],
+[460,'SKRS国际财经','＊△','斯凯韬','nirole3'],
+[461,'瑠瓦卫视','＊△','迈尼伽亚','nirole3'],
+[462,'诸天有线1','＊△','仙寰','nirole3'],
+[463,'北辰环球广电','＊△','北辰','nirole3'],
+[464,'莹Space','＊△','明空 普照新材公司','nirole3'],
+[465,'31Music','＊△','仙寰','nirole3'],
+[466,'NOF影院','＊△','茨罗敏','nirole3'],
+[467,'BGC1','＊△','茨罗敏','nirole3'],
+[468,'BlueTV','＊△','雷珂伊','nirole3'],
+[469,'FirstRadio','＊△','芳卡斯','nirole3'],
+[470,'主线Linika','＊△','芳卡斯','nirole3'],
+[471,'力恒科技台','＊△','九舫','nirole3'],
+[472,'仰恩X2','＊△','海达罗','nirole3'],
+[473,'OPBC','＊△','羯依','nirole3'],
+[474,'时轮音乐','＊△','海达罗','nirole3'],
+[475,'莹Anime','＊△','明空 普照新材公司','nirole3'],
+[476,'EDUS-C','＊△','奎野','nirole3'],
+[477,'YouFM','＊△','奎野','nirole3'],
+[478,'GFDI-News','＊△','九舫','nirole3'],
+[479,'Suoyo','＊△','倪切塔','nirole3'],
+[480,'AiraN','＊△','伏凉宇','nirole3'],
+[481,'仙寰国视-6','＊△','仙寰','nirole3'],
+[900,'CNR-1中国之声','✓⓹','广播','centralradio'],
+[910,'CNR-2经济之声','✓⓹','广播','centralradio'],
+[911,'CNR-3音乐之声','✓⓹','广播','centralradio'],
+[912,'CNR-4经典音乐','✓⓹','广播','centralradio'],
+[913,'CNR-8民族之声','✓⓹','广播','centralradio'],
+[914,'CNR-9文艺之声','✓⓹','广播','centralradio'],
+[915,'CNR-10老年之声','✓⓹','广播','centralradio'],
+[916,'CNR-15交通广播','✓⓹','广播','centralradio'],
+[917,'CNR-16乡村之声','✓⓹','广播','centralradio'],
+[918,'CNR-12阅读之声','✓⓹','广播','centralradio'],
+[901,'礼天新闻综合广播','✓⓹','广播','provradio'],
+[902,'礼天文史教科广播','✓⓹','广播','provradio'],
+[903,'礼天户外交通广播','✓⓹','广播','provradio'],
+[904,'礼天民族语广播','✓⓹','广播','provradio'],
+[905,'礼天都市女性广播','✓⓹','广播','provradio'],
+[906,'礼天音乐戏曲广播','✓⓹','广播','provradio'],
+[907,'礼天老少广播','✓⓹','广播','provradio'],
+[908,'礼天财经广播','✓⓹','广播','provradio'],
+[909,'良华原三农之声','✓⓹','广播','provradio'],
+[920,'寒芝崖新闻广播','✓⓹','广播A','localradio'],
+[921,'寒芝崖经信广播','✓⓹','广播A','localradio'],
+[922,'寒芝崖教育广播','✓⓹','广播A','localradio'],
+[923,'寒芝崖现代音乐广播','✓⓹','广播A','localradio'],
+[924,'寒芝崖交通广播','✓⓹','广播A','localradio'],
+[925,'寒芝崖古典文艺广播','✓⓹','广播A','localradio'],
+[926,'仙海新闻综合广播','✓⓹','广播B','localradio'],
+[927,'仙海文化生活广播','✓⓹','广播B','localradio'],
+[928,'仙海车载广播','✓⓹','广播B','localradio'],
+[929,'仙海三农广播','✓⓹','广播B','localradio'],
+[930,'仙海音乐广播','✓⓹','广播B','localradio'],
+[931,'镕涵新闻广播','✓⓹','广播C','localradio'],
+[932,'镕涵科教广播','✓⓹','广播C','localradio'],
+[933,'镕涵户外广播','✓⓹','广播C','localradio'],
+[934,'翔明综合广播','✓⓹','广播D','localradio'],
+[935,'翔明经信广播','✓⓹','广播D','localradio'],
+[936,'翔明文艺交通广播','✓⓹','广播D','localradio'],
+[937,'筱庄综合广播','✓⓹','广播E','localradio'],
+[938,'筱庄文旅调频','✓⓹','广播E','localradio'],
+[939,'筱庄音乐广播','✓⓹','广播E','localradio'],
+[940,'凛琛综合广播','✓⓹','广播F','localradio'],
+[941,'铃广新闻综合广播','✓⓹','广播G','localradio'],
+[942,'铃广社科文史广播','✓⓹','广播G','localradio'],
+[943,'鸿萍综合广播','✓⓹','广播H','localradio'],
+[944,'沫靳江新闻广播','✓⓹','广播J','localradio'],
+[945,'沫靳江商务广播','✓⓹','广播J','localradio'],
+[946,'锡典新闻综合广播','✓⓹','广播K','localradio'],
+[947,'锡典生活时尚广播','✓⓹','广播K','localradio'],
+[948,'歆羽新闻广播','✓⓹','广播L','localradio'],
+[949,'歆羽城市广播','✓⓹','广播L','localradio'],
+[950,'歆羽乡村广播','✓⓹','广播L','localradio'],
+[951,'慧湾新闻资讯广播','✓⓹','广播M','localradio'],
+[952,'慧湾经信交通广播','✓⓹','广播M','localradio'],
+[953,'慧湾音乐戏剧广播','✓⓹','广播M','localradio'],
+[954,'慧湾科技教育广播','✓⓹','广播M','localradio'],
+[955,'秦尹综合广播','✓⓹','广播N','localradio'],
+[956,'秦尹生活广播','✓⓹','广播N','localradio'],
+[957,'周明山综合广播','✓⓹','广播P','localradio'],
+[958,'艾穹综合广播','✓⓹','广播R','localradio'],
+[959,'永贞综合广播','✓⓹','广播S','localradio'],
+[960,'县级广播','✓⓹','保留码位','localradio']
+];
+
+/* ================= 渲染 & 交互 ================= */
+const tb=document.querySelector('tbody');
+function render(d){
+  tb.innerHTML=d.map(c=>`
+  <tr class="${c[4]}">
+    <th>${c[0]}</th>
+    <td class="ch-name">${c[1]}</td>
+    <td class="live-and-re">${c[2]}</td>
+    <td class="note">${c[3]}</td>
+  </tr>`).join('');
+}
+render(raw);
+
+document.getElementById('s').addEventListener('input',e=>{
+  const v=e.target.value.toLowerCase();
+  render(raw.filter(c=>String(c[0]).includes(v)||c[1].toLowerCase().includes(v)||c[2].toLowerCase().includes(v)||c[3].toLowerCase().includes(v)));
+});
+
+let asc=1;
+function sort(col){
+  raw.sort((a,b)=>(a[col]-b[col])*asc||(a[col]>b[col]?1:-1)*asc);
+  asc*=-1; render();
+}
+</script>
+</body>
+</html>
